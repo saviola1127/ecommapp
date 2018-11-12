@@ -30,13 +30,13 @@ public class ExampleDelegate extends LatteDelegate {
 
     private void testRestClient() {
         RestClient.builder()
-                .url("http://news.baidu.com")
-                //.params("", "")
+                .url("http://127.0.0.1/index")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        //Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+                        Log.d("DEBUG", response);
+                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .failure(new IFailure() {
@@ -53,5 +53,6 @@ public class ExampleDelegate extends LatteDelegate {
                 })
                 .build()
                 .get();
+                //.download();
     }
 }

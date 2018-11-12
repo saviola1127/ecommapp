@@ -1,8 +1,9 @@
-package com.savypan.latte.net;
+package com.savypan.latte.net.rx;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -21,37 +22,37 @@ import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 /**
- * Created by savypan on 2018/11/8.
+ * Created by savypan on 2018/11/11.
  */
 
-public interface RestService {
+public interface RxRestService {
 
     @GET
-    Call<String> get(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Observable<String> get(@Url String url, @QueryMap WeakHashMap<String, Object> params);
 
     @FormUrlEncoded
     @POST
-    Call<String> post(@Url String url, @FieldMap WeakHashMap<String, Object> params);
+    Observable<String> post(@Url String url, @FieldMap WeakHashMap<String, Object> params);
 
     @PUT
     @FormUrlEncoded
-    Call<String> put(@Url String url, @FieldMap WeakHashMap<String, Object> params);
+    Observable<String> put(@Url String url, @FieldMap WeakHashMap<String, Object> params);
 
     @PUT
     @FormUrlEncoded
-    Call<String> putRaw(@Url String url, @Body RequestBody body);
+    Observable<String> putRaw(@Url String url, @Body RequestBody body);
 
     @DELETE
-    Call<String> delete(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Observable<String> delete(@Url String url, @QueryMap WeakHashMap<String, Object> params);
 
     @Streaming //避免一次性在内容写入大块内容防止OOM,所以要在异步线程中处理，不可以在主线程中处理
     @GET
-    Call<ResponseBody> download(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Observable<ResponseBody> download(@Url String url, @QueryMap WeakHashMap<String, Object> params);
 
     @Multipart
     @POST
-    Call<String> upload(@Url String url, @Part MultipartBody.Part file);
+    Observable<String> upload(@Url String url, @Part MultipartBody.Part file);
 
     @POST
-    Call<String> postRaw(@Url String url, @Body RequestBody body);
+    Observable<String> postRaw(@Url String url, @Body RequestBody body);
 }

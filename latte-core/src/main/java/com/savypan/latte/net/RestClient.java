@@ -8,11 +8,13 @@ import com.savypan.latte.net.callback.IFailure;
 import com.savypan.latte.net.callback.IRequest;
 import com.savypan.latte.net.callback.ISuccess;
 import com.savypan.latte.net.callback.RequestCallbacks;
+import com.savypan.latte.net.download.DownloadHandler;
 import com.savypan.latte.ui.LatteLoader;
 import com.savypan.latte.ui.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -27,11 +29,14 @@ import retrofit2.http.Multipart;
 
 public class RestClient {
     private final String URL;
-    private static final Map<String, Object> PARAMS = RestCreator.getParams();
+    private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
     private final IRequest REQUEST;
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
     private final Context CONTEXT;
@@ -46,7 +51,10 @@ public class RestClient {
                       RequestBody body,
                       LoaderStyle loaderStyle,
                       Context context,
-                      File file) {
+                      File file,
+                      String downloadDir,
+                      String extension,
+                      String name) {
         this.URL = URL;
         PARAMS.putAll(params);
         this.REQUEST = iRequest;
@@ -57,6 +65,9 @@ public class RestClient {
         this.LOADER_STYLE = loaderStyle;
         this.CONTEXT = context;
         this.FILE = file;
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
     }
 
     public static RestClientBuilder builder() {
@@ -101,6 +112,7 @@ public class RestClient {
                         MultipartBody.Part.createFormData("file", FILE.getName(), requestBody);
                 call = RestCreator.getRestService().upload(URL, body);
                 break;
+            //case DOWNLOAD:
             default:
                 break;
         }
@@ -148,5 +160,10 @@ public class RestClient {
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public final void download() {
+        new DownloadHandler(URL, REQUEST, SUCCESS, FAILURE, ERROR, DOWNLOAD_DIR, EXTENSION, NAME)
+                .handleDownload();
     }
 }

@@ -31,7 +31,9 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
 
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView() {
-
+//        if (mTvTimer != null) {
+//            mTvTimer.setVisibility(View.GONE);
+//        }
     }
 
     private void initTimer() {
@@ -63,11 +65,6 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
                             mTimer.cancel();
                             mTimer = null;
                         }
-
-                        /**
-                         * 设置隐藏当倒计时结束
-                         */
-                        mTvTimer.setVisibility(View.GONE);
                     }
                 }
             }

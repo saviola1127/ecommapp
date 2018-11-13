@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.savypan.latte.util.storage.LattePreference;
 import com.savypan.latte.util.timer.BaseTimerTask;
 import com.savypan.latte.util.timer.ITimerListener;
 import com.savypan.latteec.R;
@@ -34,6 +35,11 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
 //        if (mTvTimer != null) {
 //            mTvTimer.setVisibility(View.GONE);
 //        }
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+            checkIsShowScroll();
+        }
     }
 
     private void initTimer() {
@@ -52,6 +58,16 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
         initTimer();
     }
 
+    //判断是否启动滑动页
+    private void checkIsShowScroll() {
+        if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name())) {
+            start(new LauncherScrollDelegate(), SINGLETASK);
+        } else {
+            //检查用户是否登陆过app
+
+        }
+    }
+
     @Override
     public void onTimer() {
         getProxyActivity().runOnUiThread(new Runnable() {
@@ -64,6 +80,7 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
                         if (mTimer != null) {
                             mTimer.cancel();
                             mTimer = null;
+                            checkIsShowScroll();
                         }
                     }
                 }

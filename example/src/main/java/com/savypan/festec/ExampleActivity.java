@@ -10,6 +10,7 @@ import com.savypan.latte.app.Latte;
 import com.savypan.latte.delegates.LatteDelegate;
 import com.savypan.latteec.launcher.LauncherDelegate;
 import com.savypan.latteec.launcher.LauncherScrollDelegate;
+import com.savypan.latteec.sign.SigninDelegate;
 
 public class ExampleActivity extends ProxyActivity {
 
@@ -26,7 +27,8 @@ public class ExampleActivity extends ProxyActivity {
     @Override
     public LatteDelegate setRootDelegate() {
         //return new ExampleDelegate();
-        return new LauncherDelegate();
+        //return new LauncherDelegate();
         //return new LauncherScrollDelegate();
+        return new SigninDelegate();
     }
 }

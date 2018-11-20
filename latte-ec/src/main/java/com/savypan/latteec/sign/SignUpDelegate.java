@@ -1,7 +1,9 @@
 package com.savypan.latteec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import com.savypan.latte.delegates.LatteDelegate;
 import com.savypan.latte.net.RestClient;
 import com.savypan.latte.net.callback.ISuccess;
+import com.savypan.latte.util.log.LatteLogger;
 import com.savypan.latteec.R;
 import com.savypan.latteec.R2;
 
@@ -38,18 +41,38 @@ public class SignUpDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_signup)
     void onClickSignup() {
         if (checkForm()) {
-//            RestClient.builder()
-//                    .url("sign_up")
-//                    .params("", "")
-//                    .success(new ISuccess() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//
-//                        }
-//                    })
-//                    .build()
-//                    .post();
-            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_LONG).show();
+            Log.e("SAVY", "checkForm passed");
+            RestClient.builder()
+                .url("http://mock.fulingjie.com/mock/data/user_profile.json")
+//                .params("name", mName.getText().toString())
+//                .params("email", mEmail.getText().toString())
+//                .params("phone", mPhone.getText().toString())
+//                .params("password", mPassword.getText().toString())
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        LatteLogger.json("USER_PROFILE", response);
+                        Log.e("SAVY", "response is " + response);
+                        SignHandler.onSignup(response, mISignListener);
+                    }
+                })
+                .build()
+                .post();
+            //Toast.makeText(getContext(), "验证通过", Toast.LENGTH_LONG).show();
+        } else {
+            Log.e("SAVY", "checkForm not passed");
+        }
+    }
+
+
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
         }
     }
 

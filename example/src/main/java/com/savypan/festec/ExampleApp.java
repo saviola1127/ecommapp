@@ -2,10 +2,12 @@ package com.savypan.festec;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.savypan.latte.app.Latte;
 import com.savypan.latte.net.interceptor.DebugInterceptor;
+import com.savypan.latteec.database.DatabaseManager;
 import com.savypan.latteec.icon.FontECModule;
 
 /**
@@ -24,6 +26,17 @@ public class ExampleApp extends Application {
                 .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
 
+        DatabaseManager.getInstance().init(this);
         //Iconify.with(new FontAwesomeModule());
+        initStetho();
+    }
+
+    private void initStetho() {
+        Stetho.initialize(
+            Stetho.newInitializerBuilder(this)
+            .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+            .build()
+        );
     }
 }

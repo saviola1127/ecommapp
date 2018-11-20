@@ -1,10 +1,15 @@
 package com.savypan.latteec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.savypan.latte.app.AccountManager;
+import com.savypan.latte.app.IUserChecker;
+import com.savypan.latte.ui.launcher.ILauncherListener;
+import com.savypan.latte.ui.launcher.OnLauncherFinish;
 import com.savypan.latte.util.storage.LattePreference;
 import com.savypan.latte.util.timer.BaseTimerTask;
 import com.savypan.latte.util.timer.ITimerListener;
@@ -42,6 +47,17 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
         }
     }
 
+    private ILauncherListener mILauncherListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof ILauncherListener) {
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
+
     private void initTimer() {
         mTimer = new Timer();
         final BaseTimerTask task = new BaseTimerTask(this);
@@ -63,8 +79,22 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
         if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name())) {
             start(new LauncherScrollDelegate(), SINGLETASK);
         } else {
-            //检查用户是否登陆过app
+            //检查用户是否已经登陆
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignin() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinish.SIGNED);
+                    }
+                }
 
+                @Override
+                public void onNotSignin() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinish.NOT_SIGNED);
+                    }
+                }
+            });
         }
     }
 

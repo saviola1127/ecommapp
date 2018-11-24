@@ -1,4 +1,4 @@
-package com.example;
+package com.savypan;
 
 public class MyClass {
 }

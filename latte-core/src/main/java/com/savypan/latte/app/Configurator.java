@@ -1,5 +1,6 @@
 package com.savypan.latte.app;
 
+import android.app.Activity;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -30,6 +31,21 @@ public class Configurator {
 
     public final Configurator withIcon(IconFontDescriptor descriptor) {
         ICONS.add(descriptor);
+        return this;
+    }
+
+    public final Configurator withWechatAppId(String appId) {
+        LATTE_CONFIGS.put(ConfigKeys.WECHAT_APPID, appId);
+        return this;
+    }
+
+    public final Configurator withWechatAppSec(String appSec) {
+        LATTE_CONFIGS.put(ConfigKeys.WECHAT_APPSEC, appSec);
+        return this;
+    }
+
+    public final Configurator withActivity(Activity activity) {
+        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
         return this;
     }
 

@@ -15,6 +15,8 @@ import com.savypan.latte.delegates.LatteDelegate;
 import com.savypan.latte.net.RestClient;
 import com.savypan.latte.net.callback.ISuccess;
 import com.savypan.latte.util.log.LatteLogger;
+import com.savypan.latte.wechat.LatteWechat;
+import com.savypan.latte.wechat.callbacks.IWeChatSignInCallback;
 import com.savypan.latteec.R;
 import com.savypan.latteec.R2;
 
@@ -49,7 +51,12 @@ public class SigninDelegate extends LatteDelegate {
 
     @OnClick(R2.id.icon_signin_wechat)
     void onClickWechat() {
-
+        LatteWechat.getInstance().onSigninSucess(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
+                Toast.makeText(getContext(), userInfo, Toast.LENGTH_LONG).show();
+            }
+        }).signIn();
     }
 
     @OnClick(R2.id.tv_link_signup)

@@ -24,6 +24,8 @@ public class ExampleApp extends Application {
                 .withIcon(new FontECModule())
                 .withAPIHost("http://127.0.0.1/")
                 .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withWechatAppId("")
+                .withWechatAppSec("")
                 .configure();
 
         DatabaseManager.getInstance().init(this);

@@ -12,5 +12,6 @@ public enum ConfigKeys {
     INTERCEPTOR,
     WECHAT_APPID,
     WECHAT_APPSEC,
-    ACTIVITY
+    ACTIVITY,
+    HANDLER
 }

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import butterknife.BindView;
-import com.joanzapata.iconify.Icon;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.savypan.latte.R;
 import com.savypan.latte.R2;
@@ -117,8 +116,10 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
 		final int count = mBottomBar.getChildCount();
 		for (int i = 0; i < count; i++) {
 			final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
+
 			final IconTextView iconTextView = (IconTextView) item.getChildAt(0);
 			iconTextView.setTextColor(Color.GRAY);
+
 			final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
 			itemTitle.setTextColor(Color.GRAY);
 		}

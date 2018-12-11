@@ -41,7 +41,7 @@ dependencies {
     compile 'me.yokeyword:fragmentation:1.3.6'
     compile 'me.yokeyword:fragmentation-swipeback:1.3.6'
     //butterknife
-    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     //network lib
     compile 'com.squareup.okio:okio:1.13.0'

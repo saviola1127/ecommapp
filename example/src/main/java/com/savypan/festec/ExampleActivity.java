@@ -12,6 +12,7 @@ import com.savypan.latte.ui.launcher.ILauncherListener;
 import com.savypan.latte.ui.launcher.OnLauncherFinish;
 import com.savypan.latteec.launcher.LauncherDelegate;
 import com.savypan.latteec.launcher.LauncherScrollDelegate;
+import com.savypan.latteec.main.EcBottomDelegate;
 import com.savypan.latteec.sign.ISignListener;
 import com.savypan.latteec.sign.SignUpDelegate;
 import com.savypan.latteec.sign.SigninDelegate;
@@ -54,7 +55,7 @@ public class ExampleActivity extends ProxyActivity implements
         switch (tag) {
             case SIGNED:
                 Toast.makeText(this, "启动结束，用户已登录", Toast.LENGTH_LONG).show();
-                startWithPop(new ExampleDelegate());
+                startWithPop(new EcBottomDelegate());
                 break;
 
             case NOT_SIGNED:

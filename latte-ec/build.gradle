@@ -33,5 +33,7 @@ dependencies {
 	//数据库依赖
 	compile 'org.greenrobot:greendao-generator:3.2.2'
 	compile 'org.greenrobot:greendao:3.2.2'
+    //butterKnife
+    compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

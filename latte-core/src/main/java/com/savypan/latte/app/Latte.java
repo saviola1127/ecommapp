@@ -1,6 +1,7 @@
 package com.savypan.latte.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 import java.util.HashMap;
 
@@ -31,5 +32,9 @@ public final class Latte {
 
     public static Context getApplication() {
         return (Context) getConfigurations().get(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigKeys.HANDLER);
     }
 }

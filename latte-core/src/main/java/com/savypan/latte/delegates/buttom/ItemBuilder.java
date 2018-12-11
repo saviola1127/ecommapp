@@ -19,4 +19,8 @@ public final class ItemBuilder {
 		ITEMS.putAll(items);
 		return this;
 	}
+
+	public final LinkedHashMap<BottomTabBean, BottomItemDelegate> build() {
+		return ITEMS;
+	}
 }

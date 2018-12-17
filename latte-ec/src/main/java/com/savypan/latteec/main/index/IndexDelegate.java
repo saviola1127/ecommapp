@@ -7,11 +7,19 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
+
 import com.joanzapata.iconify.widget.IconTextView;
 import com.savypan.latte.delegates.buttom.BottomItemDelegate;
+import com.savypan.latte.net.RestClient;
+import com.savypan.latte.net.callback.ISuccess;
+import com.savypan.latte.ui.recycler.MultipleFields;
+import com.savypan.latte.ui.recycler.MultipleItemEntity;
 import com.savypan.latte.ui.refresh.RefreshHandler;
 import com.savypan.latteec.R;
 import com.savypan.latteec.R2;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -49,7 +57,7 @@ public class IndexDelegate extends BottomItemDelegate {
 	public void onLazyInitView(@Nullable Bundle savedInstanceState) {
 		super.onLazyInitView(savedInstanceState);
 		initRefreshLayout();
-		mRefreshHandler.firstPage("http://mock.fulingjie.com/mock/api/index.php");
+		//mRefreshHandler.firstPage("http://mock.fulingjie.com/mock/api/index.php");
 	}
 
 	@Override
@@ -60,5 +68,24 @@ public class IndexDelegate extends BottomItemDelegate {
 	@Override
 	public void onBindView(Bundle savedInstanceState, View rootView) {
 		mRefreshHandler = new RefreshHandler(mRefreshLayout);
+		RestClient.builder()
+				.url("http://mock.fulingjie.com/mock/api/index.php")
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(String response) {
+
+						//Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+
+						final IndexDataConvertor convertor = new IndexDataConvertor();
+						convertor.setJsonData(response);
+						ArrayList<MultipleItemEntity> list = convertor.convert();
+						if (list != null) {
+							final String imageUrl = list.get(1).getField(MultipleFields.IMAGE_URL);
+							Toast.makeText(getContext(), imageUrl, Toast.LENGTH_LONG).show();
+						}
+					}
+				})
+				.build()
+				.get();
 	}
 }

@@ -10,8 +10,8 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener {
 
 	private final SwipeRefreshLayout REFRESH_LAYOUT;
 
-	public RefreshHandler(SwipeRefreshLayout refresh_layout) {
-		REFRESH_LAYOUT = refresh_layout;
+	public RefreshHandler(SwipeRefreshLayout swipeRefreshLayout) {
+		REFRESH_LAYOUT = swipeRefreshLayout;
 		REFRESH_LAYOUT.setOnRefreshListener(this);
 	}
 

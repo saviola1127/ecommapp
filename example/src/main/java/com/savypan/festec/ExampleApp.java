@@ -26,6 +26,8 @@ public class ExampleApp extends Application {
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withWechatAppId("")
                 .withWechatAppSec("")
+//                .withContext(this)
+                .withHandler()
                 .configure();
 
         DatabaseManager.getInstance().init(this);

@@ -1,7 +1,9 @@
 package com.savypan.latte.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
@@ -24,6 +26,7 @@ public final class Configurator {
 
     private Configurator(){
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY.name(), false);
+        //Log.e("SAVY", "handler => " + HANDLER.toString());
         LATTE_CONFIGS.put(ConfigKeys.HANDLER.name(), HANDLER);
     }
 
@@ -36,6 +39,17 @@ public final class Configurator {
             }
         }
     }
+
+    public final Configurator withContext(Context context) {
+        LATTE_CONFIGS.put(ConfigKeys.APPLICATION_CONTEXT, context);
+        return this;
+    }
+
+    public final Configurator withHandler() {
+        LATTE_CONFIGS.put(ConfigKeys.HANDLER, HANDLER);
+        return this;
+    }
+
 
     public final Configurator withIcon(IconFontDescriptor descriptor) {
         ICONS.add(descriptor);
@@ -71,6 +85,7 @@ public final class Configurator {
 
     public final void configure() {
         initIcons();
+        //LATTE_CONFIGS.put(ConfigKeys.HANDLER.name(), HANDLER);
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY.name(), true);
     }
 

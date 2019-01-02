@@ -13,6 +13,7 @@ import java.util.WeakHashMap;
 
 public class MultipleItemEntity implements MultiItemEntity {
 
+    //TODO:invest more
     private final ReferenceQueue<LinkedHashMap<Object, Object>> ITEM_QUEUE = new ReferenceQueue<>();
     private final LinkedHashMap<Object, Object> MULTIPLE_FIELDS = new LinkedHashMap<>();
     private final SoftReference<LinkedHashMap<Object, Object>> FIELDS_REFERENCE =

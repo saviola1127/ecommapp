@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -53,11 +54,17 @@ public class IndexDelegate extends BottomItemDelegate {
 		mRefreshLayout.setProgressViewOffset(true, 120, 300);
 	}
 
+	private void initRecyclerView() {
+		final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+		mRecyclerView.setLayoutManager(manager);
+	}
+
 	@Override
 	public void onLazyInitView(@Nullable Bundle savedInstanceState) {
 		super.onLazyInitView(savedInstanceState);
 		initRefreshLayout();
-		//mRefreshHandler.firstPage("http://mock.fulingjie.com/mock/api/index.php");
+		initRecyclerView();
+		mRefreshHandler.firstPage("http://mock.fulingjie.com/mock/api/index.php");
 	}
 
 	@Override
@@ -67,25 +74,26 @@ public class IndexDelegate extends BottomItemDelegate {
 
 	@Override
 	public void onBindView(Bundle savedInstanceState, View rootView) {
-		mRefreshHandler = new RefreshHandler(mRefreshLayout);
-		RestClient.builder()
-				.url("http://mock.fulingjie.com/mock/api/index.php")
-				.success(new ISuccess() {
-					@Override
-					public void onSuccess(String response) {
-
-						//Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
-
-						final IndexDataConvertor convertor = new IndexDataConvertor();
-						convertor.setJsonData(response);
-						ArrayList<MultipleItemEntity> list = convertor.convert();
-						if (list != null) {
-							final String imageUrl = list.get(1).getField(MultipleFields.IMAGE_URL);
-							Toast.makeText(getContext(), imageUrl, Toast.LENGTH_LONG).show();
-						}
-					}
-				})
-				.build()
-				.get();
+		//mRefreshHandler = new RefreshHandler(mRefreshLayout);
+		mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConvertor());
+//		RestClient.builder()
+//				.url("http://mock.fulingjie.com/mock/api/index.php")
+//				.success(new ISuccess() {
+//					@Override
+//					public void onSuccess(String response) {
+//
+//						Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+//
+//						final IndexDataConvertor convertor = new IndexDataConvertor();
+//						convertor.setJsonData(response);
+//						ArrayList<MultipleItemEntity> list = convertor.convert();
+//						if (list != null) {
+//							final String imageUrl = list.get(1).getField(MultipleFields.IMAGE_URL);
+//							Toast.makeText(getContext(), imageUrl, Toast.LENGTH_LONG).show();
+//						}
+//					}
+//				})
+//				.build()
+//				.get();
 	}
 }

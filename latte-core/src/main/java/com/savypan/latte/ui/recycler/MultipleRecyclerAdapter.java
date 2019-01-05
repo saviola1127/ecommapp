@@ -9,6 +9,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -35,9 +36,15 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
      */
     protected MultipleRecyclerAdapter(List<MultipleItemEntity> data) {
         super(data);
-
         init();
     }
+
+    private static final RequestOptions RECYCLER_OPTIONS =
+            new RequestOptions()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate();
+
 
     public static MultipleRecyclerAdapter create(List<MultipleItemEntity> data) {
         return new MultipleRecyclerAdapter(data);
@@ -96,9 +103,7 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
                 imageUrl = entity.getField(MultipleFields.IMAGE_URL);
                 Glide.with(mContext)
                         .load(imageUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .dontAnimate()
-                        .centerCrop()
+                        .apply(RECYCLER_OPTIONS)
                         .into((ImageView) holder.getView(R.id.img_sinle));
 
                 break;
@@ -110,9 +115,7 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
 
                 Glide.with(mContext)
                         .load(imageUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .dontAnimate()
-                        .centerCrop()
+                        .apply(RECYCLER_OPTIONS)
                         .into((ImageView) holder.getView(R.id.img_multiple));
                 holder.setText(R.id.tv_multiple, text);
 

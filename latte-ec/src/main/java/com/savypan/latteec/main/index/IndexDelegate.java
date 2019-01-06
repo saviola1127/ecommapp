@@ -2,6 +2,7 @@ package com.savypan.latteec.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,11 +15,13 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.savypan.latte.delegates.buttom.BottomItemDelegate;
 import com.savypan.latte.net.RestClient;
 import com.savypan.latte.net.callback.ISuccess;
+import com.savypan.latte.ui.recycler.BaseDecoration;
 import com.savypan.latte.ui.recycler.MultipleFields;
 import com.savypan.latte.ui.recycler.MultipleItemEntity;
 import com.savypan.latte.ui.refresh.RefreshHandler;
 import com.savypan.latteec.R;
 import com.savypan.latteec.R2;
+import com.savypan.latteec.main.EcBottomDelegate;
 
 import java.util.ArrayList;
 
@@ -57,6 +60,10 @@ public class IndexDelegate extends BottomItemDelegate {
 	private void initRecyclerView() {
 		final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
 		mRecyclerView.setLayoutManager(manager);
+		mRecyclerView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+
+		final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+		mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
 	}
 
 	@Override

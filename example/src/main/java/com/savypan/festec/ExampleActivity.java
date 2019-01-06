@@ -17,6 +17,8 @@ import com.savypan.latteec.sign.ISignListener;
 import com.savypan.latteec.sign.SignUpDelegate;
 import com.savypan.latteec.sign.SigninDelegate;
 
+import qiu.niorgai.StatusBarCompat;
+
 public class ExampleActivity extends ProxyActivity implements
     ISignListener, ILauncherListener {
 
@@ -30,6 +32,7 @@ public class ExampleActivity extends ProxyActivity implements
         }
 
         Latte.getConfigurator().withActivity(this);
+        StatusBarCompat.translucentStatusBar(this, true);
     }
 
     @Override

@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.savypan.latte.delegates.LatteDelegate;
 import com.savypan.latte.ui.recycler.ItemType;
 import com.savypan.latte.ui.recycler.MultipleFields;
 import com.savypan.latte.ui.recycler.MultipleItemEntity;
@@ -12,6 +14,7 @@ import com.savypan.latte.ui.recycler.MultipleRecyclerAdapter;
 import com.savypan.latte.ui.recycler.MultipleViewHolder;
 import com.savypan.latteec.R;
 import com.savypan.latteec.main.sort.SortDelegate;
+import com.savypan.latteec.main.sort.content.ContentDelegate;
 
 import java.util.List;
 
@@ -61,6 +64,8 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
                             mPrePosition = currentPos;
 
                             final int contentId = getData().get(currentPos).getField(MultipleFields.ID);
+                            showContent(contentId);
+                            //Toast.makeText(mContext, "contentId is " + contentId, Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -82,6 +87,18 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
 
                 break;
 
+        }
+    }
+
+    private void showContent(int contentId) {
+        final ContentDelegate delegate = ContentDelegate.newInstance(contentId);
+        switchContent(delegate);
+    }
+
+    private void switchContent(ContentDelegate delegate) {
+        final LatteDelegate contentDelegate = DELEGATE.findChildFragment(ContentDelegate.class);
+        if (contentDelegate != null) {
+            contentDelegate.replaceFragment(delegate, false);
         }
     }
 }

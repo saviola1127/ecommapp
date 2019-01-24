@@ -5,6 +5,7 @@ import com.savypan.latte.delegates.buttom.BaseBottomDelegate;
 import com.savypan.latte.delegates.buttom.BottomItemDelegate;
 import com.savypan.latte.delegates.buttom.BottomTabBean;
 import com.savypan.latte.delegates.buttom.ItemBuilder;
+import com.savypan.latteec.main.discovery.DiscoveryDelegate;
 import com.savypan.latteec.main.index.IndexDelegate;
 import com.savypan.latteec.main.sort.SortDelegate;
 
@@ -16,7 +17,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
 		final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
 		items.put(new BottomTabBean("{fa-home}", "主页"), new IndexDelegate());
 		items.put(new BottomTabBean("{fa-sort}", "分类"), new SortDelegate());
-		items.put(new BottomTabBean("{fa-compass}", "发现"), new IndexDelegate());
+		items.put(new BottomTabBean("{fa-compass}", "发现"), new DiscoveryDelegate());
 		items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new IndexDelegate());
 		items.put(new BottomTabBean("{fa-user}", "我的"), new IndexDelegate());
 		return builder.addItems(items).build();

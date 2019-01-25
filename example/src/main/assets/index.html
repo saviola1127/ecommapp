@@ -14,7 +14,20 @@
 
 <h1>This is a local test page!</h1>
 
-<a href="second.html">Click to second page!</a>
+<button id="test">test event</button>
+<script type="text/javascript">
+
+    function nativeCall() {
+        alert('native has been called!');
+    }
+
+    document.getElementById('test').onclick = function() {
+        var command = {
+            'action': 'test'
+        };
+        latte.event(JSON.stringify(command));
+    };
+</script>
 
 </body>
 </html>

@@ -57,7 +57,7 @@ public abstract class WebDelegate extends LatteDelegate {
                 mWebView.setWebViewClient(initializer.initWebViewClient());
                 mWebView.setWebChromeClient(initializer.initWebChromeClient());
 
-                mWebView.addJavascriptInterface(LatteWebInterface.create(this), "Latte");
+                mWebView.addJavascriptInterface(LatteWebInterface.create(this), "latte");
                 mIsWebViewAvailable = true;
             } else {
                 throw new NullPointerException("Initializer is NULL!");

@@ -6,6 +6,7 @@ package com.savypan.latte.app;
 
 public enum ConfigKeys {
     API_HOST,
+    WEB_HOST,
     APPLICATION_CONTEXT,
     CONFIG_READY,
     ICON,

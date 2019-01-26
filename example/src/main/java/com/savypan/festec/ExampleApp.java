@@ -7,6 +7,7 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.savypan.latte.app.Latte;
 import com.savypan.festec.event.TestEvent;
 import com.savypan.latte.net.interceptor.DebugInterceptor;
+import com.savypan.latte.net.rx.AddCookieInterceptor;
 import com.savypan.latteec.database.DatabaseManager;
 import com.savypan.latteec.icon.FontECModule;
 
@@ -23,7 +24,10 @@ public class ExampleApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontECModule())
                 .withAPIHost("http://mock.fulingjie.com/mock/api/")
+                .withWebHost("https://www.google.com/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
+                //添加Cookie同步拦截器
+                .withInterceptor(new AddCookieInterceptor())
                 .withWechatAppId("")
                 .withWechatAppSec("")
 //                .withContext(this)

@@ -1,8 +1,10 @@
-package com.savypan.latte.delegates.web.event;
+package com.savypan.festec.event;
 
 import android.os.Build;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.savypan.latte.delegates.web.event.Event;
 
 public class TestEvent extends Event {
 

@@ -13,5 +13,6 @@ public enum ConfigKeys {
     WECHAT_APPID,
     WECHAT_APPSEC,
     ACTIVITY,
-    HANDLER
+    HANDLER,
+    JAVASCRIPT_INT
 }

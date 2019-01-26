@@ -9,7 +9,7 @@ public class EventManager {
     private static final HashMap<String, Event> EVENTS = new HashMap<>();
 
     private EventManager() {
-
+        //addEvent("test", new TestEvent());
     }
 
     private static class Holder {
@@ -28,7 +28,7 @@ public class EventManager {
     public Event createEvent(@NonNull String action) {
         final Event event = EVENTS.get(action);
         if (event == null) {
-            return new TestEvent();
+            return new UndefinedEvent();
         }
 
         return event;

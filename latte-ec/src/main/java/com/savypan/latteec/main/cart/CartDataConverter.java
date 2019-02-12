@@ -36,6 +36,8 @@ public class CartDataConverter extends DataConvertor {
                     .setField(CartItemFields.COUNT, count)
                     .setField(CartItemFields.PRICE, price)
                     .setField(CartItemFields.DESC, desc)
+                    .setField(CartItemFields.IS_SELECTED, false)
+                    .setField(CartItemFields.POSITION, i)
                     .build();
 
             dataList.add(entity);

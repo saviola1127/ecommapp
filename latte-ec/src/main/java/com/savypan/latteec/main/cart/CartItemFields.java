@@ -7,5 +7,7 @@ public enum CartItemFields {
     DESC,
     ID,
     PRICE,
-    COUNT
+    COUNT,
+    IS_SELECTED,
+    POSITION
 }
